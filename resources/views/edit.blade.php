@@ -19,18 +19,18 @@
             @method('PUT')
 
             <div class="mb-3">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="{{ $task->title }}">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ $task->name }}">
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea type="text" class="form-control" id="description" name="description" rows="5">{{ $task->description }}</textarea>
+                <label for="priority" class="form-label">Priority</label>
+                <input type="text" class="form-control" id="priority" name="priority" value="{{ $task->priority }}">
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Status</label>
-                <select name="status" id="status" class="form-control">
-                    @foreach ($statuses as $status)
-                        <option value="{{ $status['value'] }}" {{  $task->status === $status['value'] ? 'selected' : '' }}>{{ $status['label'] }}</option>
+                <label for="project" class="form-label">Project</label>
+                <select name="project" id="project" class="form-control">
+                    @foreach ($projects as $project)
+                        <option value="{{ $project['value'] }}" {{  $task->project === $project['value'] ? 'selected' : '' }}>{{ $project['label'] }}</option>
                     @endforeach
                 </select>
             </div>

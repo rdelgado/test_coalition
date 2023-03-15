@@ -1,19 +1,11 @@
-## Simple Laravel CRUD Application
-
-A simple laravel task management application using Laravel 8.25.
-
-This is actually the video of Youtube.
-
-Laravel Complete Task Management Application in 45 Minutes using Laravel 8.x with Database & ORM -
-
-[![Watch the video](https://i.ibb.co/XyBXf8k/Screenshot-2022-04-08-at-6-03-10-PM.png)](https://youtu.be/lVUFuS1EQhM)
+## Laravel web application for task management
 
 
 # Installation 
 
 1. Clone Project
 ````sh
-git clone https://github.com/ManiruzzamanAkash/Laravel-Simple-CRUD-App.git
+git clone https://github.com/rdelgado/task-management-laravel
 ````
 2. Composer install
 ````sh
@@ -25,33 +17,21 @@ composer install
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=your_db_name
+DB_DATABASE=test_coalition
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 5. Go to the project - 
 ```sh
-cd Laravel-Simple-CRUD-App
+cd task-management-laravel
 ```
 6. Run Project inside that directory - 
 ````sh
 php artisan serve
 ````
+php artisan migrate
+````
 7. Open in Browser 
 ````sh
 http://localhost:8000
-````
-
-### Demo
-<img src="https://i.ibb.co/CQjWFrP/Demo-CRUD-Application.png" alt="Demo-CRUD-Application" border="0">
-
-#### Create Task Page
-<img src="https://i.ibb.co/LJCvKKk/Create-Task-Page.png" alt="Create-Task-Page" border="0">
-
-#### Delete Task Page
-<img src="https://i.ibb.co/RCCkpT7/Delete-task.png" alt="Delete-task" border="0">
-
-
-#### Edit Task Page
-<img src="https://i.ibb.co/ssDy296/Edit-task.png" alt="Edit-task" border="0">
 

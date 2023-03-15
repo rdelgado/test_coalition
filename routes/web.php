@@ -15,4 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [TaskController::class, 'index'])->name('index');
+Route::post('task/update-order','App\Http\Controllers\TaskController@updateOrder'); 
 Route::resource('task', TaskController::class);
+
+
+
+

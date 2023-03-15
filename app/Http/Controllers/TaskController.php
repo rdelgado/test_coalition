@@ -12,12 +12,59 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::orderBy('id', 'desc')->get();
-        return view('index', compact('tasks'));
+        $tasks = Task::orderBy('priority', 'asc')->get();
+        $projects = [
+            [
+                'label' => 'Project 1',
+                'value' => 'Project 1',
+            ],
+            [
+                'label' => 'Project 2',
+                'value' => 'Project 2',
+            ],
+            [
+                'label' => 'Project 3',
+                'value' => 'Project 3',
+            ],
+            [
+                'label' => 'Project 4',
+                'value' => 'Project 4',
+            ]
+        ];
+
+        $project = $request->project;
+        if($project != "" && $project != "ALL"){
+
+             $tasks = Task::where('project', 'like', '%'.$project.'%')
+            ->orderBy('id', 'desc')->get();
+
+            return view('index', compact('tasks'),  compact('projects'))
+            ->with('task', $tasks);
+        }
+
+        return view('index', compact('tasks'),  compact('projects'));
     }
 
+
+
+
+    public function updateOrder(Request $request)
+    {
+        if($request->has('ids')){
+            $arr = explode(',',$request->input('ids'));
+            
+            foreach($arr as $sortOrder => $id){
+                $tasks = Task::find($id);
+                $tasks->priority = $sortOrder+1;
+                $tasks->save();
+            }
+            return ['success'=>true,'message'=>'Updated'];
+        }
+    }
+
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -25,17 +72,25 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $statuses = [
+        $projects = [
             [
-                'label' => 'Todo',
-                'value' => 'Todo',
+                'label' => 'Project 1',
+                'value' => 'Project 1',
             ],
             [
-                'label' => 'Done',
-                'value' => 'Done',
+                'label' => 'Project 2',
+                'value' => 'Project 2',
+            ],
+            [
+                'label' => 'Project 3',
+                'value' => 'Project 3',
+            ],
+            [
+                'label' => 'Project 4',
+                'value' => 'Project 4',
             ]
         ];
-        return view('create', compact('statuses'));
+        return view('create', compact('projects'));
     }
 
     /**
@@ -47,13 +102,14 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required'
+            'name' => 'required',
+            'priority' => 'required'
         ]);
 
         $task = new Task();
-        $task->title = $request->title;
-        $task->description = $request->description;
-        $task->status = $request->status;
+        $task->name = $request->name;
+        $task->priority = $request->priority;
+        $task->project = $request->project;
         $task->save();
         return redirect()->route('index');
     }
@@ -78,17 +134,25 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::findOrFail($id);
-        $statuses = [
+        $projects = [
             [
-                'label' => 'Todo',
-                'value' => 'Todo',
+                'label' => 'Project 1',
+                'value' => 'Project 1',
             ],
             [
-                'label' => 'Done',
-                'value' => 'Done',
+                'label' => 'Project 2',
+                'value' => 'Project 2',
+            ],
+            [
+                'label' => 'Project 3',
+                'value' => 'Project 3',
+            ],
+            [
+                'label' => 'Project 4',
+                'value' => 'Project 4',
             ]
         ];
-        return view('edit', compact('statuses', 'task'));
+        return view('edit', compact('projects', 'task'));
     }
 
     /**
@@ -102,12 +166,13 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $request->validate([
-            'title' => 'required'
+            'name' => 'required',
+            'priority' => 'required'
         ]);
 
-        $task->title = $request->title;
-        $task->description = $request->description;
-        $task->status = $request->status;
+        $task->name = $request->name;
+        $task->priority = $request->priority;
+        $task->project = $request->project;
         $task->save();
         return redirect()->route('index');
     }
