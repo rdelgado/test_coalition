@@ -5,7 +5,7 @@
 
 1. Clone Project
 ````sh
-git clone https://github.com/rdelgado/task-management-laravel
+git clone https://github.com/rdelgado/test-coalition
 ````
 2. Composer install
 ````sh
